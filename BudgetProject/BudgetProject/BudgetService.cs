@@ -9,23 +9,23 @@ namespace BudgetProject
 {
     public class BudgetService
     {
-        private readonly IBudgetRepo repo;
-        private readonly Dictionary<string, int> yearMonthBudget;
+        private readonly IBudgetRepo _budgetRepo;
+        private readonly Dictionary<string, int> _yearMonthBudget;
 
-        public BudgetService(IBudgetRepo r)
+        public BudgetService(IBudgetRepo budgetRepo)
         {
-            repo = r;
+            _budgetRepo = budgetRepo;
 
-            yearMonthBudget = new Dictionary<string, int>();
+            _yearMonthBudget = new Dictionary<string, int>();
         }
 
         public decimal Query(DateTime startTime, DateTime endDateTime)
         {
-            var repoDatas = repo.getAll();
+            var repoDatas = _budgetRepo.getAll();
 
             for (int i = 0; i < repoDatas.Count; i++)
             {
-                yearMonthBudget.Add(repoDatas[i].YearMonth, repoDatas[i].Amount);
+                _yearMonthBudget.Add(repoDatas[i].YearMonth, repoDatas[i].Amount);
             }
 
             if (dateTimeInverseInput(startTime, endDateTime))
@@ -78,12 +78,12 @@ namespace BudgetProject
         int GetBudgetByYearMonth(DateTime time)
         {
             string yyyymm = time.Year.ToString() + time.Month.ToString("00");
-            if (!yearMonthBudget.ContainsKey(yyyymm))
+            if (!_yearMonthBudget.ContainsKey(yyyymm))
             {
                 return 0;
             }
 
-            return yearMonthBudget[yyyymm];
+            return _yearMonthBudget[yyyymm];
         }
 
         int GetSameMonthDays(DateTime startTime, DateTime endDateTime)
