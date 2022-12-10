@@ -24,7 +24,7 @@ namespace BudgetProject
 
             _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
 
-            if (dateTimeInverseInput(startTime, endDateTime))
+            if (startTime > endDateTime)
             {
                 return 0;
             }
@@ -66,10 +66,6 @@ namespace BudgetProject
         }
 
         //起訖錯誤
-        bool dateTimeInverseInput(DateTime startTime, DateTime endDateTime)
-        {
-            return startTime > endDateTime;
-        }
 
         int GetBudgetByYearMonth(DateTime time)
         {
