@@ -49,7 +49,7 @@ namespace BudgetProject
                         overlappingStart = start;
                         overlappingEnd = new DateTime(start.Year, start.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
                     }
-                    else if (currentMonth.ToString("yyyyMM") == end.ToString("yyyyMM"))
+                    else if (budget.YearMonth == end.ToString("yyyyMM"))
                     {
                         overlappingStart = new DateTime(end.Year, end.Month, 1);
                         overlappingEnd = end;
