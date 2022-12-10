@@ -22,9 +22,7 @@ namespace BudgetProject
         {
             var budgets = _budgetRepo.getAll();
 
-            var yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
-
-            _yearMonthBudget = yearMonthBudget;
+            _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
 
             if (dateTimeInverseInput(startTime, endDateTime))
             {
