@@ -28,13 +28,6 @@ namespace BudgetProject
             var budgets = _budgetRepo.getAll();
             _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget);
 
-            // if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
-            // {
-            //     //同年同月
-            //     return GetSingleDayBudgetInMonth(start.Year, start.Month) *
-            //         GetSameMonthDays(start, end);
-            // }
-
             var currentMonth = new DateTime(start.Year, start.Month, 1);
             var total = 0;
             var period = new Period(start, end);
