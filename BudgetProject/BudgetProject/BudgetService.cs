@@ -53,7 +53,10 @@ namespace BudgetProject
                 }
                 else
                 {
-                    total += GetBudgetByYearMonth(new DateTime(currentMonth.Year, currentMonth.Month, 1));
+                    var overlappingStart = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+                    var overlappingEnd = new DateTime(currentMonth.Year, currentMonth.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
+                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
+                    // total += GetBudgetByYearMonth(new DateTime(currentMonth.Year, currentMonth.Month, 1));
                 }
 
                 currentMonth = currentMonth.AddMonths(1);
