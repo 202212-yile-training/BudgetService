@@ -57,8 +57,7 @@ namespace BudgetProject
                     else
                     {
                         overlappingStart = budget.GetFirstDay();
-                        // overlappingStart = new DateTime(currentMonth.Year, currentMonth.Month, 1);
-                        overlappingEnd = new DateTime(currentMonth.Year, currentMonth.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
+                        overlappingEnd = budget.GetLastDay();
                     }
 
                     total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);

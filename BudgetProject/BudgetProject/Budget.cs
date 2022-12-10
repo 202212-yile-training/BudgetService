@@ -21,5 +21,12 @@ namespace BudgetProject
         {
             return DateTime.ParseExact(YearMonth, "yyyyMM", null);
         }
+
+        public DateTime GetLastDay()
+        {
+            var firstDay = GetFirstDay();
+            var daysInMonth = DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
+            return DateTime.ParseExact(YearMonth + daysInMonth, "yyyyMMdd", null);
+        }
     }
 }
