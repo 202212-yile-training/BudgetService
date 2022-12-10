@@ -14,8 +14,8 @@ namespace BudgetProject
             End = end;
         }
 
-        public DateTime End { get; }
-        public DateTime Start { get; }
+        private DateTime End { get; }
+        private DateTime Start { get; }
 
         public int GetOverlappingDays(Budget budget)
         {
@@ -37,8 +37,7 @@ namespace BudgetProject
                 overlappingEnd = budget.GetLastDay();
             }
 
-            var overlappingDays = (overlappingEnd - overlappingStart).Days + 1;
-            return overlappingDays;
+            return (overlappingEnd - overlappingStart).Days + 1;
         }
     }
 }
