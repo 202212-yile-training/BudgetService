@@ -60,7 +60,8 @@ namespace BudgetProject
                         overlappingEnd = budget.GetLastDay();
                     }
 
-                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
+                    var overlappingDays = GetSameMonthDays(overlappingStart, overlappingEnd);
+                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * overlappingDays;
                 }
 
                 currentMonth = currentMonth.AddMonths(1);
