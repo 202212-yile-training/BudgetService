@@ -39,25 +39,28 @@ namespace BudgetProject
             var total = 0;
             while (currentMonth <= end)
             {
+                DateTime overlappingStart;
+                DateTime overlappingEnd;
                 if (currentMonth.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
-                    var overlappingStart = start;
-                    var overlappingEnd = new DateTime(start.Year, start.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
-                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
+                    overlappingStart = start;
+                    overlappingEnd = new DateTime(start.Year, start.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
+                    // total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
                 else if (currentMonth.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
-                    var overlappingStart = new DateTime(end.Year, end.Month, 1);
-                    var overlappingEnd = end;
-                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
+                    overlappingStart = new DateTime(end.Year, end.Month, 1);
+                    overlappingEnd = end;
+                    // total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
                 else
                 {
-                    var overlappingStart = new DateTime(currentMonth.Year, currentMonth.Month, 1);
-                    var overlappingEnd = new DateTime(currentMonth.Year, currentMonth.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
-                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
-                    // total += GetBudgetByYearMonth(new DateTime(currentMonth.Year, currentMonth.Month, 1));
+                    overlappingStart = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+                    overlappingEnd = new DateTime(currentMonth.Year, currentMonth.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
+                    // total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
+
+                total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
 
                 currentMonth = currentMonth.AddMonths(1);
             }
