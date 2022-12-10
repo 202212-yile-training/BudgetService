@@ -39,22 +39,19 @@ namespace BudgetProject
             var total = 0;
             while (currentMonth <= end)
             {
-                var defineYear = currentMonth.Year;
-                var defineMonth = currentMonth.Month;
-
                 if (currentMonth.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
-                    var remainDay = DateTime.DaysInMonth(defineYear, defineMonth);
+                    var remainDay = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
                     Console.WriteLine(remainDay);
-                    total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(start, new DateTime(start.Year, start.Month, remainDay));
+                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(start, new DateTime(start.Year, start.Month, remainDay));
                 }
                 else if (currentMonth.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
-                    total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(new DateTime(end.Year, end.Month, 1), end);
+                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(new DateTime(end.Year, end.Month, 1), end);
                 }
                 else
                 {
-                    total += GetBudgetByYearMonth(new DateTime(defineYear, defineMonth, 1));
+                    total += GetBudgetByYearMonth(new DateTime(currentMonth.Year, currentMonth.Month, 1));
                 }
 
                 currentMonth = currentMonth.AddMonths(1);
