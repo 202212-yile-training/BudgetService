@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #endregion
 
@@ -21,11 +22,7 @@ namespace BudgetProject
         {
             var budgets = _budgetRepo.getAll();
 
-            var yearMonthBudget = new Dictionary<string, int>();
-            foreach (var budget in budgets)
-            {
-                yearMonthBudget.Add(budget.YearMonth, budget.Amount);
-            }
+            var yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
 
             _yearMonthBudget = yearMonthBudget;
 
