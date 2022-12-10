@@ -1,18 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace BudgetProject
 {
     public class Budget
     {
-        public Budget(string yyyymm, int a)
+        public Budget(string yearMonth, int amount)
         {
-            YearMonth = yyyymm;
-            Amount = a;
+            YearMonth = yearMonth;
+            Amount = amount;
         }
-        public string YearMonth;
-        public int Amount;
+
+        public int Amount { get; }
+        public string YearMonth { get; }
+
+        public DateTime GetFirstDay()
+        {
+            return DateTime.ParseExact(YearMonth, "yyyyMM", null);
+        }
     }
 }
