@@ -23,9 +23,9 @@ namespace BudgetProject
         {
             var budgets = _budgetRepo.getAll();
 
-            for (int i = 0; i < budgets.Count; i++)
+            foreach (var t in budgets)
             {
-                _yearMonthBudget.Add(budgets[i].YearMonth, budgets[i].Amount);
+                _yearMonthBudget.Add(t.YearMonth, t.Amount);
             }
 
             if (dateTimeInverseInput(startTime, endDateTime))
