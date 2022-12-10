@@ -28,22 +28,11 @@ namespace BudgetProject
             var budgets = _budgetRepo.getAll();
             _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget);
 
-            var currentMonth = new DateTime(start.Year, start.Month, 1);
             var total = 0;
             var period = new Period(start, end);
             foreach (var budget in budgets)
-                // {
-                //     
-                // }
-                // while (currentMonth <= end)
             {
-                // if (_yearMonthBudget.ContainsKey(currentMonth.ToString("yyyyMM")))
-                // {
-                //     var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
                 total += budget.GetOverlappingAmount(period);
-                // }
-
-                // currentMonth = currentMonth.AddMonths(1);
             }
 
             return total;
