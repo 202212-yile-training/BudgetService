@@ -1,32 +1,33 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace BudgetProject
 {
     public class BudgetService
     {
-        private IBudgetRepo repo;
+        private readonly IBudgetRepo repo;
+        private readonly Dictionary<string, int> yearMonthBudget;
 
-        private Dictionary<string, int> yearMonthBudget;
         public BudgetService(IBudgetRepo r)
         {
             repo = r;
 
             yearMonthBudget = new Dictionary<string, int>();
-            var repoDatas = repo.getAll();
+        }
 
+        public decimal Query(DateTime startTime, DateTime endDateTime)
+        {
+            var repoDatas = repo.getAll();
 
             for (int i = 0; i < repoDatas.Count; i++)
             {
                 yearMonthBudget.Add(repoDatas[i].YearMonth, repoDatas[i].Amount);
             }
 
-        }
-
-        public decimal Query(DateTime startTime, DateTime endDateTime)
-        {
             if (dateTimeInverseInput(startTime, endDateTime))
             {
                 return 0;
@@ -36,10 +37,10 @@ namespace BudgetProject
             {
                 //同年同月
                 return GetSingleDayBudgetInMonth(startTime.Year, startTime.Month) *
-                       GetSameMonthDays(startTime, endDateTime);
+                    GetSameMonthDays(startTime, endDateTime);
             }
 
-            DateTime valueDateTime = new DateTime(startTime.Year, startTime.Month,1);
+            DateTime valueDateTime = new DateTime(startTime.Year, startTime.Month, 1);
             //DateTime valueDateTime = startTime;
             int total = 0;
             while (valueDateTime <= endDateTime)
@@ -52,32 +53,37 @@ namespace BudgetProject
                     int remainDay = DateTime.DaysInMonth(defineYear, defineMonth);
                     Console.WriteLine(remainDay);
                     total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(startTime, new DateTime(startTime.Year, startTime.Month, remainDay));
-
                 }
                 else if (valueDateTime.ToString("yyyyMM") == endDateTime.ToString("yyyyMM"))
                 {
-
                     total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(new DateTime(endDateTime.Year, endDateTime.Month, 1), endDateTime);
-
                 }
                 else
                 {
                     total += GetBudgetByYearMonth(new DateTime(defineYear, defineMonth, 1));
-
                 }
 
                 valueDateTime = valueDateTime.AddMonths(1);
-                
             }
 
             return total;
-            
         }
 
         //起訖錯誤
         bool dateTimeInverseInput(DateTime startTime, DateTime endDateTime)
         {
             return startTime > endDateTime;
+        }
+
+        int GetBudgetByYearMonth(DateTime time)
+        {
+            string yyyymm = time.Year.ToString() + time.Month.ToString("00");
+            if (!yearMonthBudget.ContainsKey(yyyymm))
+            {
+                return 0;
+            }
+
+            return yearMonthBudget[yyyymm];
         }
 
         int GetSameMonthDays(DateTime startTime, DateTime endDateTime)
@@ -96,17 +102,5 @@ namespace BudgetProject
         {
             return DateTime.DaysInMonth(year, month);
         }
-
-        int GetBudgetByYearMonth(DateTime time)
-        {
-            string yyyymm = time.Year.ToString() + time.Month.ToString("00");
-            if (!yearMonthBudget.ContainsKey(yyyymm))
-            {
-                return 0;
-            }
-
-            return yearMonthBudget[yyyymm];
-        }
-
     }
 }
