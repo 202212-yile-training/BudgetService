@@ -42,7 +42,9 @@ namespace BudgetProject
                 if (currentMonth.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
                     var daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
-                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(start, new DateTime(start.Year, start.Month, daysInMonth));
+                    var overlappingStart = start;
+                    var overlappingEnd = new DateTime(start.Year, start.Month, daysInMonth);
+                    total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
                 else if (currentMonth.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
