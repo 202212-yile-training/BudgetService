@@ -20,14 +20,13 @@ namespace BudgetProject
 
         public decimal Query(DateTime startTime, DateTime endDateTime)
         {
-            var budgets = _budgetRepo.getAll();
-
-            _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
-
             if (startTime > endDateTime)
             {
                 return 0;
             }
+
+            var budgets = _budgetRepo.getAll();
+            _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
 
             if ((startTime.Year == endDateTime.Year) && startTime.Month == endDateTime.Month)
             {
