@@ -37,12 +37,12 @@ namespace BudgetProject
 
             var currentMonth = new DateTime(start.Year, start.Month, 1);
             var total = 0;
+            var period = new Period(start, end);
             while (currentMonth <= end)
             {
                 if (_yearMonthBudget.ContainsKey(currentMonth.ToString("yyyyMM")))
                 {
                     var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
-                    var period = new Period(start, end);
                     var overlappingDays = period.GetOverlappingDays(budget.CreatePeriod());
                     total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * overlappingDays;
                 }
