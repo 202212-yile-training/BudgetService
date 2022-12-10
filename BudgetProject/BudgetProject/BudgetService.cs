@@ -44,7 +44,7 @@ namespace BudgetProject
                     var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
                     DateTime overlappingStart;
                     DateTime overlappingEnd;
-                    if (currentMonth.ToString("yyyyMM") == start.ToString("yyyyMM"))
+                    if (budget.YearMonth == start.ToString("yyyyMM"))
                     {
                         overlappingStart = start;
                         overlappingEnd = new DateTime(start.Year, start.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
