@@ -23,11 +23,9 @@ namespace BudgetProject
                 return 0;
             }
 
-            var budgets = _budgetRepo.getAll();
-
             var period = new Period(start, end);
 
-            return budgets.Sum(budget => budget.GetOverlappingAmount(period));
+            return _budgetRepo.getAll().Sum(budget => budget.GetOverlappingAmount(period));
         }
     }
 }
