@@ -42,7 +42,7 @@ namespace BudgetProject
                 if (_yearMonthBudget.ContainsKey(currentMonth.ToString("yyyyMM")))
                 {
                     var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
-                    var overlappingDays = new Period(start, end).GetOverlappingDays(new Period(budget.GetFirstDay(), budget.GetLastDay()));
+                    var overlappingDays = new Period(start, end).GetOverlappingDays(CreatePeriod(budget));
                     total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * overlappingDays;
                 }
 
@@ -50,6 +50,11 @@ namespace BudgetProject
             }
 
             return total;
+        }
+
+        private static Period CreatePeriod(Budget budget)
+        {
+            return new Period(budget.GetFirstDay(), budget.GetLastDay());
         }
 
         int GetBudgetByYearMonth(DateTime time)
