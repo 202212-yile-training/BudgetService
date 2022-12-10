@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 #endregion
@@ -11,7 +10,6 @@ namespace BudgetProject
     public class BudgetService
     {
         private readonly IBudgetRepo _budgetRepo;
-        private Dictionary<string, Budget> _yearMonthBudget;
 
         public BudgetService(IBudgetRepo budgetRepo)
         {
@@ -26,39 +24,10 @@ namespace BudgetProject
             }
 
             var budgets = _budgetRepo.getAll();
-            _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget);
 
             var period = new Period(start, end);
 
             return budgets.Sum(budget => budget.GetOverlappingAmount(period));
-        }
-
-        int GetBudgetByYearMonth(DateTime time)
-        {
-            var yyyymm = time.Year.ToString() + time.Month.ToString("00");
-            if (!_yearMonthBudget.ContainsKey(yyyymm))
-            {
-                return 0;
-            }
-
-            return _yearMonthBudget[yyyymm].Amount;
-        }
-
-        int GetSameMonthDays(DateTime startTime, DateTime endDateTime)
-        {
-            return endDateTime.Day - startTime.Day + 1;
-        }
-
-        int GetSingleDayBudgetInMonth(int year, int month)
-        {
-            var monnthBudget = GetBudgetByYearMonth(new DateTime(year, month, 1));
-
-            return monnthBudget / GetTotalDayInMonth(year, month);
-        }
-
-        int GetTotalDayInMonth(int year, int month)
-        {
-            return DateTime.DaysInMonth(year, month);
         }
     }
 }
