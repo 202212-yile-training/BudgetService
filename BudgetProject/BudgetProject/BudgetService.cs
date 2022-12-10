@@ -11,7 +11,7 @@ namespace BudgetProject
     public class BudgetService
     {
         private readonly IBudgetRepo _budgetRepo;
-        private Dictionary<string, int> _yearMonthBudget;
+        private Dictionary<string, Budget> _yearMonthBudget;
 
         public BudgetService(IBudgetRepo budgetRepo)
         {
@@ -26,7 +26,7 @@ namespace BudgetProject
             }
 
             var budgets = _budgetRepo.getAll();
-            _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
+            _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget);
 
             if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
             {
@@ -73,7 +73,7 @@ namespace BudgetProject
                 return 0;
             }
 
-            return _yearMonthBudget[yyyymm];
+            return _yearMonthBudget[yyyymm].Amount;
         }
 
         int GetSameMonthDays(DateTime startTime, DateTime endDateTime)
