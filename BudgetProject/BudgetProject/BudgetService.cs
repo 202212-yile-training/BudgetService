@@ -44,7 +44,7 @@ namespace BudgetProject
                 {
                     var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
                     var overlappingDays = period.GetOverlappingDays(budget.CreatePeriod());
-                    var dailyAmount = GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month);
+                    var dailyAmount = budget.Amount / budget.GetLastDay().Day;
                     total += dailyAmount * overlappingDays;
                 }
 
