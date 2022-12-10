@@ -45,19 +45,16 @@ namespace BudgetProject
                 {
                     overlappingStart = start;
                     overlappingEnd = new DateTime(start.Year, start.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
-                    // total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
                 else if (currentMonth.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
                     overlappingStart = new DateTime(end.Year, end.Month, 1);
                     overlappingEnd = end;
-                    // total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
                 else
                 {
                     overlappingStart = new DateTime(currentMonth.Year, currentMonth.Month, 1);
                     overlappingEnd = new DateTime(currentMonth.Year, currentMonth.Month, DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month));
-                    // total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
                 }
 
                 total += GetSingleDayBudgetInMonth(currentMonth.Year, currentMonth.Month) * GetSameMonthDays(overlappingStart, overlappingEnd);
