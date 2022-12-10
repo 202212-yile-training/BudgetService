@@ -10,23 +10,24 @@ namespace BudgetProject
     public class BudgetService
     {
         private readonly IBudgetRepo _budgetRepo;
-        private readonly Dictionary<string, int> _yearMonthBudget;
+        private Dictionary<string, int> _yearMonthBudget;
 
         public BudgetService(IBudgetRepo budgetRepo)
         {
             _budgetRepo = budgetRepo;
-
-            _yearMonthBudget = new Dictionary<string, int>();
         }
 
         public decimal Query(DateTime startTime, DateTime endDateTime)
         {
             var budgets = _budgetRepo.getAll();
 
-            foreach (var t in budgets)
+            var yearMonthBudget = new Dictionary<string, int>();
+            foreach (var budget in budgets)
             {
-                _yearMonthBudget.Add(t.YearMonth, t.Amount);
+                yearMonthBudget.Add(budget.YearMonth, budget.Amount);
             }
+
+            _yearMonthBudget = yearMonthBudget;
 
             if (dateTimeInverseInput(startTime, endDateTime))
             {
