@@ -31,15 +31,19 @@ namespace BudgetProject
             var currentMonth = new DateTime(start.Year, start.Month, 1);
             var total = 0;
             var period = new Period(start, end);
-            while (currentMonth <= end)
+            foreach (var budget in budgets)
+                // {
+                //     
+                // }
+                // while (currentMonth <= end)
             {
-                if (_yearMonthBudget.ContainsKey(currentMonth.ToString("yyyyMM")))
-                {
-                    var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
-                    total += budget.GetOverlappingAmount(period);
-                }
+                // if (_yearMonthBudget.ContainsKey(currentMonth.ToString("yyyyMM")))
+                // {
+                //     var budget = _yearMonthBudget[currentMonth.ToString("yyyyMM")];
+                total += budget.GetOverlappingAmount(period);
+                // }
 
-                currentMonth = currentMonth.AddMonths(1);
+                // currentMonth = currentMonth.AddMonths(1);
             }
 
             return total;
