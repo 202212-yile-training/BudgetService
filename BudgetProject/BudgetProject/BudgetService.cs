@@ -21,11 +21,11 @@ namespace BudgetProject
 
         public decimal Query(DateTime startTime, DateTime endDateTime)
         {
-            var repoDatas = _budgetRepo.getAll();
+            var budgets = _budgetRepo.getAll();
 
-            for (int i = 0; i < repoDatas.Count; i++)
+            for (int i = 0; i < budgets.Count; i++)
             {
-                _yearMonthBudget.Add(repoDatas[i].YearMonth, repoDatas[i].Amount);
+                _yearMonthBudget.Add(budgets[i].YearMonth, budgets[i].Amount);
             }
 
             if (dateTimeInverseInput(startTime, endDateTime))
