@@ -35,17 +35,16 @@ namespace BudgetProject
                     GetSameMonthDays(start, end);
             }
 
-            DateTime valueDateTime = new DateTime(start.Year, start.Month, 1);
-            //DateTime valueDateTime = startTime;
-            int total = 0;
+            var valueDateTime = new DateTime(start.Year, start.Month, 1);
+            var total = 0;
             while (valueDateTime <= end)
             {
-                int defineYear = valueDateTime.Year;
-                int defineMonth = valueDateTime.Month;
+                var defineYear = valueDateTime.Year;
+                var defineMonth = valueDateTime.Month;
 
                 if (valueDateTime.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
-                    int remainDay = DateTime.DaysInMonth(defineYear, defineMonth);
+                    var remainDay = DateTime.DaysInMonth(defineYear, defineMonth);
                     Console.WriteLine(remainDay);
                     total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(start, new DateTime(start.Year, start.Month, remainDay));
                 }
@@ -64,11 +63,9 @@ namespace BudgetProject
             return total;
         }
 
-        //起訖錯誤
-
         int GetBudgetByYearMonth(DateTime time)
         {
-            string yyyymm = time.Year.ToString() + time.Month.ToString("00");
+            var yyyymm = time.Year.ToString() + time.Month.ToString("00");
             if (!_yearMonthBudget.ContainsKey(yyyymm))
             {
                 return 0;
