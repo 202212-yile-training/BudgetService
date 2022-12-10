@@ -18,9 +18,9 @@ namespace BudgetProject
             _budgetRepo = budgetRepo;
         }
 
-        public decimal Query(DateTime startTime, DateTime endDateTime)
+        public decimal Query(DateTime start, DateTime end)
         {
-            if (startTime > endDateTime)
+            if (start > end)
             {
                 return 0;
             }
@@ -28,30 +28,30 @@ namespace BudgetProject
             var budgets = _budgetRepo.getAll();
             _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
 
-            if (startTime.ToString("yyyyMM") == endDateTime.ToString("yyyyMM"))
+            if (start.ToString("yyyyMM") == end.ToString("yyyyMM"))
             {
                 //同年同月
-                return GetSingleDayBudgetInMonth(startTime.Year, startTime.Month) *
-                    GetSameMonthDays(startTime, endDateTime);
+                return GetSingleDayBudgetInMonth(start.Year, start.Month) *
+                    GetSameMonthDays(start, end);
             }
 
-            DateTime valueDateTime = new DateTime(startTime.Year, startTime.Month, 1);
+            DateTime valueDateTime = new DateTime(start.Year, start.Month, 1);
             //DateTime valueDateTime = startTime;
             int total = 0;
-            while (valueDateTime <= endDateTime)
+            while (valueDateTime <= end)
             {
                 int defineYear = valueDateTime.Year;
                 int defineMonth = valueDateTime.Month;
 
-                if (valueDateTime.ToString("yyyyMM") == startTime.ToString("yyyyMM"))
+                if (valueDateTime.ToString("yyyyMM") == start.ToString("yyyyMM"))
                 {
                     int remainDay = DateTime.DaysInMonth(defineYear, defineMonth);
                     Console.WriteLine(remainDay);
-                    total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(startTime, new DateTime(startTime.Year, startTime.Month, remainDay));
+                    total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(start, new DateTime(start.Year, start.Month, remainDay));
                 }
-                else if (valueDateTime.ToString("yyyyMM") == endDateTime.ToString("yyyyMM"))
+                else if (valueDateTime.ToString("yyyyMM") == end.ToString("yyyyMM"))
                 {
-                    total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(new DateTime(endDateTime.Year, endDateTime.Month, 1), endDateTime);
+                    total += GetSingleDayBudgetInMonth(defineYear, defineMonth) * GetSameMonthDays(new DateTime(end.Year, end.Month, 1), end);
                 }
                 else
                 {
