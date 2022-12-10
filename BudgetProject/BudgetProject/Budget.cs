@@ -33,5 +33,10 @@ namespace BudgetProject
         {
             return new Period(GetFirstDay(), GetLastDay());
         }
+
+        public int GetDailyAmount()
+        {
+            return Amount / GetLastDay().Day;
+        }
     }
 }
