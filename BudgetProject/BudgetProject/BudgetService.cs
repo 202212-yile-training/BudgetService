@@ -28,7 +28,7 @@ namespace BudgetProject
             var budgets = _budgetRepo.getAll();
             _yearMonthBudget = budgets.ToDictionary(budget => budget.YearMonth, budget => budget.Amount);
 
-            if ((startTime.Year == endDateTime.Year) && startTime.Month == endDateTime.Month)
+            if (startTime.ToString("yyyyMM") == endDateTime.ToString("yyyyMM"))
             {
                 //同年同月
                 return GetSingleDayBudgetInMonth(startTime.Year, startTime.Month) *
